@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick Aurora | Luxury Real Estate Broker</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #f7fafc;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--secondary); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover { color: var(--secondary); }
+
+        .btn-get-started {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-get-started:hover { background: var(--secondary); transform: translateY(-2px); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 8%;
+            position: relative;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            max-width: 600px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            max-width: 500px;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* --- Search Bar (Glassmorphism) --- */
+        .search-container {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 25px 40px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .search-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-item label {
+            color: var(--text-light);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .search-item select, .search-item input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .btn-search {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-search:hover { background: var(--secondary); }
+
+        /* --- Featured Properties --- */
+        .section {
+            padding: 120px 8% 60px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .property-card:hover { transform: translateY(-10px); }
+
+        .property-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .property-content {
+            padding: 20px;
+        }
+
+        .property-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+        .property-loc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px; }
+        .property-price { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .property-features i { margin-right: 5px; color: var(--secondary); }
+
+        /* --- Why Choose Us --- */
+        .why-us {
+            padding: 80px 8%;
+            background: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-item h3 { font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; }
+        .feature-item p { font-size: 0.9rem; color: var(--text-light); }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3rem; }
+            .search-container { flex-wrap: wrap; border-radius: 20px; width: 90%; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { text-align: center; align-items: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .search-container { position: static; transform: none; margin: 20px auto; }
+            .section { padding-top: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-home"></i> Rick Aurora <span>Real Estate</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Listings</a></li>
+            <li><a href="#">Agents</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <a href="#" class="btn-get-started">GET STARTED</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>FIND YOUR PERFECT LIVING SPACE</h1>
+        <p>Discover exclusive luxury homes and sophisticated properties tailored to your modern lifestyle with Rick Aurora's expert guidance.</p>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-item">
+                <label>Location</label>
+                <select>
+                    <option>Select Location</option>
+                    <option>Malibu</option>
+                    <option>New York</option>
+                    <option>Seattle</option>
+                    <option>Miami</option>
+                </select>
+            </div>
+            <div class="search-item">
+                <label>Property Type</label>
+                <select>
+                    <option>Property Type</option>
+                    <option>Modern Villa</option>
+                    <option>Apartment</option>
+                    <option>Residence</option>
+                </select>
+            </div>
+            <div class="search-item">
+                <label>Price Range</label>
+                <input type="range" min="500000" max="10000000">
+            </div>
+            <button class="btn-search">
+                <i class="fas fa-search"></i> SEARCH
+            </button>
+        </div>
+    </header>
+
+    <!-- Featured Properties Section -->
+    <section class="section">
+        <h2 class="section-title">Featured Properties</h2>
+        <div class="property-grid">
+            
+            <!-- Card 1 -->
+            <div class="property-card">
+                <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="property-content">
+                    <div class="property-title">MODERN VILLA</div>
+                    <div class="property-loc"><i class="fas fa-map-marker-alt"></i> Malibu</div>
+                    <div class="property-price">$4,500,000</div>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i> 5 Beds</span>
+                        <span><i class="fas fa-bath"></i> 4 Baths</span>
+                        <span><i class="fas fa-expand"></i> 4,800 sq ft</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="property-card">
+                <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="property-content">
+                    <div class="property-title">SKYLINE APARTMENT</div>
+                    <div class="property-loc"><i class="fas fa-map-marker-alt"></i> New York</div>
+                    <div class="property-price">$2,900,000</div>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i> 3 Beds</span>
+                        <span><i class="fas fa-bath"></i> 2 Baths</span>
+                        <span><i class="fas fa-expand"></i> 2,100 sq ft</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="property-card">
+                <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="property-content">
+                    <div class="property-title">LAKESIDE RESIDENCE</div>
+                    <div class="property-loc"><i class="fas fa-map-marker-alt"></i> Seattle</div>
+                    <div class="property-price">$3,200,000</div>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i> 4 Beds</span>
+                        <span><i class="fas fa-bath"></i> 4 Baths</span>
+                        <span><i class="fas fa-expand"></i> 3,500 sq ft</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="property-card">
+                <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="property-content">
+                    <div class="property-title">CONTEMPORARY OASIS</div>
+                    <div class="property-loc"><i class="fas fa-map-marker-alt"></i> Miami</div>
+                    <div class="property-price">$1,850,000</div>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i> 5 Beds</span>
+                        <span><i class="fas fa-bath"></i> 4 Baths</span>
+                        <span><i class="fas fa-expand"></i> 4,800 sq ft</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us section">
+        <h2 class="section-title">Why Choose Us</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-home"></i></div>
+                <h3>Premium Listings</h3>
+                <p>Curated exclusive luxury homes and sophisticated properties from our premium listings.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Expert Guidance</h3>
+                <p>Expert international knowledge mentioned in professional expert guidance.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Market Analytics</h3>
+                <p>Ensure great investment with extraordinary market analytics and growth insights.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Secure Transactions</h3>
+                <p>Secure transactions reminder with modern intervention and secure data protocols.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; background: var(--primary); color: white;">
+        <p>&copy; 2024 Rick Aurora - Real Estate Broker. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
